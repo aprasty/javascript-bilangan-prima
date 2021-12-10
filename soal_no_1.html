@@ -1,0 +1,41 @@
+
+<script type="text/javascript">
+    function prime(n){
+ 
+        if (n<2) {
+            return false ;
+        }else if (n==2){
+            return false ;
+        }else{
+            for(var i=2 ; i <= Math.sqrt(n) ; i++){
+                if ( n % i == 0){
+                    return false
+                }
+            }
+            return true ;
+        }
+    }
+    
+    function cekPrime(n){
+        if (n>1){
+            if (prime(n)){
+                document.getElementById('txt').value=" Prime number";
+ 
+            }else{
+                document.getElementById('txt').value=" Not prime number";
+            }
+        }else{
+                document.getElementById('txt').value="-";
+        }
+    }
+</script>
+ 
+<body>
+    <form id="form1" name="prima">
+        <h2>Bilangan Prima</h2>
+        <p>Input :
+          <input type="text" id="nilai" name="nilai" onKeyUp="cekPrime(parseFloat(document.prima.nilai.value))">
+      </p>
+        <p>Output : <input type="text" id="txt" onFocus="blur()">
+    </form>
+</body>

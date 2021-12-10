@@ -1,0 +1,141 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<style type="text/css">
+		body {
+			font-family: "Lucida Sans Unicode", "Lucida Grande", "Segoe Ui";
+		}
+		
+		table {
+			margin: auto;
+			font-family: "Lucida Sans Unicode", "Lucida Grande", "Segoe Ui";
+			font-size: 12px;
+
+		}
+		.demo-table {
+			border-collapse: collapse;
+			font-size: 13px;
+		}
+		.demo-table th, 
+		.demo-table td {
+			border-bottom: 1px solid #e1edff;
+			border-left: 1px solid #e1edff;
+			padding: 7px 17px;
+		}
+		.demo-table th, 
+		.demo-table td:last-child {
+			border-right: 1px solid #e1edff;
+		}
+		.demo-table td:first-child {
+			border-top: 1px solid #e1edff;
+		}
+		.demo-table td:last-child{
+			border-bottom: 0;
+		}
+		caption {
+			caption-side: top;
+			margin-bottom: 10px;
+		}
+		
+		/* Table Header */
+		.demo-table thead th {
+			background-color: #508abb;
+			color: #FFFFFF;
+			border-color: #6ea1cc !important;
+			text-transform: uppercase;
+		}
+		
+		/* Table Body */
+		.demo-table tbody td {
+			color: #353535;
+		}
+		
+		.demo-table tbody tr:nth-child(odd) td {
+			background-color: #f4fbff;
+		}
+		.demo-table tbody tr:hover th,
+		.demo-table tbody tr:hover td {
+			background-color: #ffffa2;
+			border-color: #ffff0f;
+			transition: all .2s;
+		}
+	 </style>
+	<style>
+		
+		td, th {
+		  border: 1px solid #f4fbff;
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {
+		  background-color: #f4fbff;
+		}
+
+		tr.tr-hover-class:hover {
+      background: grey !important;
+   }
+		</style>
+</head>
+<body>
+	<div id="film-list">
+		<table id="demo-table" class="demo-table responsive">
+			<thead>
+				<tr>
+					<th scope="col">No</th>
+					<th scope="col">internalName</th>
+					<th scope="col">title</th>
+					<th scope="col">storeID</th>
+					<th scope="col">gameID</th>
+					<th scope="col">salePrice</th>
+					<th scope="col">normalPrice</th>
+					<th scope="col">savings</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>
+
+<script>
+	var request = new XMLHttpRequest();
+
+const url = "https://www.cheapshark.com/api/1.0/deals"
+
+async function getapi(url) {
+    
+    const response = await fetch(url);
+
+    var data = await response.json();
+    
+    for (var i = 0; i < data.length; i++) {
+		var internalName = data[i].internalName;
+		var title = data[i].title;
+		var storeID = data[i].storeID;
+		var gameID = data[i].normalPrice;
+		var salePrice = data[i].salePrice;
+		var normalPrice = data[i].normalPrice;
+		var savings = data[i].savings;
+		var tr = document.createElement('tr');
+		tr.innerHTML =
+		'<tbody>' +
+			'<tr>' +
+				'<td data-header=Nama class=title>' + (i+1) + '</td>' +
+				'<td>' + internalName + '</td>' +
+				'<td>' + title + '</td>' +
+				'<td>' + storeID + '</td>' +
+				'<td>' + gameID + '</td>' +
+				'<td>' + salePrice + '</td>' +
+				'<td>' + normalPrice + '</td>' +
+				'<td>' + savings + '</td>' +
+			'</tr>' +
+		'</tbody>'
+			document.getElementById('demo-table').appendChild(tr);
+    }
+    
+    return data
+}
+
+const data = getapi(url);
+
+</script>
